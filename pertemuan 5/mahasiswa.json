@@ -1,0 +1,29 @@
+{
+    "mahasiswa": [
+      {
+        "nama": "Ghulam Hajid",
+        "social_media": {
+          "facebook": "ghulamhajid",
+          "twitter": "@ghulamhajid",
+          "instagram": "@ghulamhajid"
+        }
+      },
+      {
+        "nama": "Azzah Takiyyah",
+        "social_media": {
+          "facebook": "azzah",
+          "twitter": "@azzah",
+          "instagram": "@azzah"
+        }
+      },
+      {
+        "nama": "Abid Ammar",
+        "social_media": {
+          "facebook": "abid",
+          "twitter": "@abid",
+          "instagram": "@abid"
+        }
+      }
+    ]
+  }
+  
