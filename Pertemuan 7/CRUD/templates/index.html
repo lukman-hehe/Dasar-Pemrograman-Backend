@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi CRUD</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Aplikasi CRUD Python Menggunakan Flask</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th width="10%" colspan="2">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in container %}
+                <tr>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td><a href="{{ url_for('edit', id=row[0]) }}" class="btn btn-warning" role="button">Ubah</a></td>
+                    <td><button class="btn btn-danger" role="button" onclick="confirmDelete('{{ row[0] }}')">Hapus</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('tambah') }}" class="btn btn-primary" role="button">Tambah Data</a>
+    </div>
+
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/hapus/${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === 'Data berhasil dihapus!') {
+                            Swal.fire(
+                                'Dihapus!',
+                                'Data Anda telah dihapus.',
+                                'success'
+                            ).then(() => {
+                                window.location.reload();
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // Displaying SweetAlert notification if redirected from add, edit or delete actions
+        document.addEventListener("DOMContentLoaded", function(event) {
+            if (window.location.href.indexOf("index") !== -1) {
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Operasi berhasil dilakukan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
