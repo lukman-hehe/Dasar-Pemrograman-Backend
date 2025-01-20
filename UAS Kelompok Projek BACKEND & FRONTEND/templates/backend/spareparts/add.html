@@ -1,0 +1,61 @@
+{% extends 'backend/base.html' %}
+{% block title %}Tambah Sparepart{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3><i class="fas fa-plus"></i> Tambah Sparepart Baru</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Kode Part</label>
+                        <input type="text" name="kode_part" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nama Part</label>
+                        <input type="text" name="nama_part" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Harga</label>
+                        <input type="number" name="harga" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stok</label>
+                        <input type="number" name="stok" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Kategori</label>
+                        <select name="kategori" class="form-control" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="Mesin">Mesin</option>
+                            <option value="Body">Body</option>
+                            <option value="Elektrik">Elektrik</option>
+                            <option value="Aksesoris">Aksesoris</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gambar</label>
+                        <input type="file" name="gambar" class="form-control" accept="image/*" required>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                <a href="{{ url_for('admin_spareparts') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

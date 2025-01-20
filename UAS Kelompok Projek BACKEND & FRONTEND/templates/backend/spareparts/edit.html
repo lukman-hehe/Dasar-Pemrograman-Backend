@@ -1,0 +1,67 @@
+{% extends 'backend/base.html' %}
+{% block title %}Edit Sparepart{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3><i class="fas fa-edit"></i> Edit Sparepart</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Kode Part</label>
+                        <input type="text" name="kode_part" class="form-control" 
+                               value="{{ sparepart[1] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nama Part</label>
+                        <input type="text" name="nama_part" class="form-control" 
+                               value="{{ sparepart[2] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Harga</label>
+                        <input type="number" name="harga" class="form-control" 
+                               value="{{ sparepart[3] }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stok</label>
+                        <input type="number" name="stok" class="form-control" 
+                               value="{{ sparepart[4] }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Kategori</label>
+                        <select name="kategori" class="form-control" required>
+                            <option value="Mesin" {% if sparepart[7] == 'Mesin' %}selected{% endif %}>Mesin</option>
+                            <option value="Body" {% if sparepart[7] == 'Body' %}selected{% endif %}>Body</option>
+                            <option value="Elektrik" {% if sparepart[7] == 'Elektrik' %}selected{% endif %}>Elektrik</option>
+                            <option value="Aksesoris" {% if sparepart[7] == 'Aksesoris' %}selected{% endif %}>Aksesoris</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control" rows="3" required>{{ sparepart[6] }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gambar Saat Ini</label>
+                        <img src="{{ url_for('static', filename='uploads/' + sparepart[5]) }}" 
+                             class="img-thumbnail d-block mb-2" style="max-height: 150px;">
+                        <label class="form-label">Ganti Gambar (opsional)</label>
+                        <input type="file" name="gambar" class="form-control" accept="image/*">
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                <a href="{{ url_for('admin_spareparts') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Update
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

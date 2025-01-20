@@ -1,0 +1,64 @@
+{% extends 'frontend/base.html' %}
+{% block title %}{{ product[2] }}{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('catalog') }}">Katalog</a></li>
+        <li class="breadcrumb-item active">{{ product[2] }}</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ url_for('static', filename='uploads/' + product[5]) }}" 
+                 class="img-fluid rounded-start" 
+                 alt="{{ product[2] }}"
+                 style="object-fit: cover; height: 100%;">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h2 class="card-title mb-4">{{ product[2] }}</h2>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Kode Part:</strong><br>
+                            {{ product[1] }}
+                        </p>
+                        <p>
+                            <strong>Kategori:</strong><br>
+                            {{ product[7] }}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Harga:</strong><br>
+                            <span class="text-primary fs-4">
+                                Rp {{ "{:,}".format(product[3]) }}
+                            </span>
+                        </p>
+                        <p>
+                            <strong>Status Stok:</strong><br>
+                            {% if product[4] > 0 %}
+                                <span class="badge bg-success">Tersedia ({{ product[4] }})</span>
+                            {% else %}
+                                <span class="badge bg-danger">Stok Habis</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h5>Deskripsi:</h5>
+                    <p class="card-text">{{ product[6] }}</p>
+                </div>
+                </a>
+                <a href="{{ url_for('catalog') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Katalog
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
