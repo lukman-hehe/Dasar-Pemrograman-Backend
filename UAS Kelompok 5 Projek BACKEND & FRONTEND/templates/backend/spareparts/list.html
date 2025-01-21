@@ -1,0 +1,81 @@
+{% extends 'backend/base.html' %}
+{% block title %}Daftar Sparepart{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-cogs"></i> Daftar Sparepart</h2>
+    <a href="{{ url_for('admin_add_sparepart') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Tambah Sparepart
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Kode Part</th>
+                        <th>Gambar</th>
+                        <th>Nama Part</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for part in spareparts %}
+                    <tr>
+                        <td>{{ part[1] }}</td>
+                        <td>
+                            <img src="{{ url_for('static', filename='uploads/' + part[5]) }}" 
+                                 alt="{{ part[2] }}" 
+                                 style="height: 50px; width: 50px; object-fit: cover;">
+                        </td>
+                        <td>{{ part[2] }}</td>
+                        <td>{{ part[7] }}</td>
+                        <td>Rp {{ "{:,}".format(part[3]) }}</td>
+                        <td>
+                            <span class="badge {% if part[4] < 5 %}bg-danger{% else %}bg-success{% endif %}">
+                                {{ part[4] }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{{ url_for('admin_edit_sparepart', id=part[0]) }}" 
+                                   class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button onclick="confirmDelete('{{ part[0] }}')" 
+                                        class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete(id) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Data yang dihapus tidak dapat dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/sparepart/delete/${id}`;
+        }
+    })
+}
+</script>
+{% endblock %}

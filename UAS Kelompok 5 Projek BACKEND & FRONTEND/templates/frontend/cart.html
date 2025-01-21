@@ -1,0 +1,15 @@
+{% extends 'frontend/base.html' %}
+{% block title %}Keranjang{% endblock %}
+{% block content %}
+<h2>Keranjang Belanja</h2>
+{% if cart %}
+    <ul>
+        {% for item in cart %}
+            <li>{{ item.name }} - Rp {{ "{:,}".format(item.price) }} (Jumlah: {{ item.quantity }})</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Keranjang Anda kosong.</p>
+{% endif %}
+<a href="{{ url_for('catalog') }}" class="btn btn-primary">Kembali ke Katalog</a>
+{% endblock %}
